@@ -32,4 +32,8 @@ dev_dependencies:
   flutter_lints: ^4.0.0
 
 flutter:
+  assets:
+    - assets/lang/en.json
+    - assets/lang/ar.json
+
   uses-material-design: true
