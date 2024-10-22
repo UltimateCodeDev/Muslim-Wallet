@@ -21,6 +21,7 @@ dependencies:
   dio:
   freezed_annotation:
   json_annotation:
+  flutter_screenutil: ^5.9.3
 
 dev_dependencies:
   flutter_test:
@@ -32,4 +33,18 @@ dev_dependencies:
   flutter_lints: ^4.0.0
 
 flutter:
+  assets:
+    - assets/lang/en.json
+    - assets/lang/ar.json
+    - assets/images/
+  fonts:
+    - family: Almarai
+      fonts:
+        - asset: assets/fonts/Almarai-Regular.ttf
+        - asset: assets/fonts/Almarai-Bold.ttf
+        - asset: assets/fonts/Almarai-ExtraBold.ttf
+        - asset: assets/fonts/Almarai-Light.ttf
+          weight: 700
+
+
   uses-material-design: true

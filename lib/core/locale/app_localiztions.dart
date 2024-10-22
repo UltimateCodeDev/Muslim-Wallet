@@ -3,6 +3,8 @@ import 'package:flutter/services.dart';
 
 import 'dart:convert';
 
+import '../bloc_cache/cache_service.dart';
+
 class AppLocaliztions {
   static Locale locale = const Locale("en");
   late Map<String, String> _localizedStrings;
@@ -27,13 +29,13 @@ class AppLocaliztions {
   String translate(String key) => _localizedStrings[key] ?? '';
 
   static Future<void> setLocaleCode(String localeCode) async {
-    //await StorageHelper().saveData('locale', localeCode);
+    await StorageHelper().saveData('locale', localeCode);
     AppLocaliztions.locale = Locale(localeCode);
   }
 
   static Future<Locale> getLocaleCode() async {
-    // final localeValue = await StorageHelper().getData('locale');
-    locale = Locale("ar" ?? 'en');
+    final localeValue = await StorageHelper().getData('locale');
+    locale = Locale(localeValue ?? 'en');
     return locale;
   }
 }
