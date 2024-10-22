@@ -3,61 +3,61 @@ import 'package:flutter/services.dart';
 
 import 'dart:convert';
 
-class AppLocalizations {
-  final Locale locale;
+class AppLocaliztions {
+  static Locale locale = const Locale("en");
+  late Map<String, String> _localizedStrings;
 
-  AppLocalizations(this.locale);
+  AppLocaliztions();
 
-  static AppLocalizations? of(BuildContext context) {
-    return Localizations.of<AppLocalizations>(context, AppLocalizations);
+  static AppLocaliztions of(BuildContext context) {
+    return Localizations.of<AppLocaliztions>(context, AppLocaliztions)!;
   }
 
-  // This [delegate] will be called from MaterialApp
-  static const LocalizationsDelegate<AppLocalizations> delegate =
-      _AppLocalizationsDelegate();
+  static const LocalizationsDelegate<AppLocaliztions> delegate =
+      _AppLocaliztionsDelegate();
 
-  Map<String, String>? _localizedString;
-
-  // This method will load the required JSON file according to locale
-  Future<bool> load() async {
-    String jsonStr =
-        await rootBundle.loadString("lang/${locale.languageCode}.json");
-
-    Map<String, dynamic> jsonMap = jsonDecode(jsonStr);
-
-    _localizedString =
+  Future<void> loadJsonLanguage() async {
+    final jsonString = await rootBundle
+        .loadString('assets/lang/${AppLocaliztions.locale.languageCode}.json');
+    final Map<String, dynamic> jsonMap = json.decode(jsonString);
+    _localizedStrings =
         jsonMap.map((key, value) => MapEntry(key, value.toString()));
-
-    return true;
   }
 
-  // This method will return the localized string for given key
-  String translate(String key) {
-    return _localizedString![key] ?? "";
+  String translate(String key) => _localizedStrings[key] ?? '';
+
+  static Future<void> setLocaleCode(String localeCode) async {
+    //await StorageHelper().saveData('locale', localeCode);
+    AppLocaliztions.locale = Locale(localeCode);
+  }
+
+  static Future<Locale> getLocaleCode() async {
+    // final localeValue = await StorageHelper().getData('locale');
+    locale = Locale("ar" ?? 'en');
+    return locale;
   }
 }
 
-class _AppLocalizationsDelegate
-    extends LocalizationsDelegate<AppLocalizations> {
-  const _AppLocalizationsDelegate();
+class _AppLocaliztionsDelegate extends LocalizationsDelegate<AppLocaliztions> {
+  const _AppLocaliztionsDelegate();
 
   @override
-  bool isSupported(Locale locale) {
-    // All supported languages
-    return ["ar", "en"].contains(locale.languageCode);
+  bool isSupported(Locale locale) => ['en', 'ar'].contains(locale.languageCode);
+
+  @override
+  Future<AppLocaliztions> load(Locale locale) async {
+    AppLocaliztions.locale = locale; // ضبط اللغة الثابتة هنا
+    final localizations = AppLocaliztions();
+    await localizations.loadJsonLanguage();
+    return localizations;
   }
 
   @override
-  Future<AppLocalizations> load(Locale locale) async {
-    AppLocalizations appLocalizations = AppLocalizations(locale);
+  bool shouldReload(covariant LocalizationsDelegate<AppLocaliztions> old) =>
+      false;
+}
 
-    // The [load] method from AppLocalizations class runs here
-    await appLocalizations.load();
-    return appLocalizations;
-  }
-
-  @override
-  bool shouldReload(covariant LocalizationsDelegate<AppLocalizations> old) {
-    return false;
-  }
+extension TranslateX on String {
+  String tr(BuildContext context) =>
+      AppLocaliztions.of(context).translate(this);
 }

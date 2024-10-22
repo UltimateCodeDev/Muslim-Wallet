@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<ThemeCubit, ThemeMode>(
       bloc: getIt<ThemeCubit>(),
-      builder: (context, themeMode) {
+      builder: (_, themeMode) {
         return MaterialApp(
           title: 'Muslim Wallet',
           themeMode: themeMode,
