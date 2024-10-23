@@ -24,12 +24,12 @@ void main() async {
   );
   Bloc.observer = MyBlocObserver();
   ServiceLocator().init();
-  runApp( MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  final  appRouter = AppRouter();
-   MyApp({super.key});
+  final appRouter = AppRouter();
+  MyApp({super.key});
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<LocalizationsCubit, Locale>(
@@ -43,8 +43,7 @@ class MyApp extends StatelessWidget {
               minTextAdapt: true,
               splitScreenMode: true,
               builder: (_, child) {
-                return
-                  MaterialApp(
+                return MaterialApp(
                     debugShowCheckedModeBanner: false,
                     locale: locale,
                     supportedLocales: const [Locale('en'), Locale('ar')],
@@ -58,10 +57,8 @@ class MyApp extends StatelessWidget {
                     themeMode: themeMode,
                     theme: AppTheme.light,
                     darkTheme: AppTheme.dark,
-                    onGenerateRoute: appRouter.generateRoute,
-                  );
+                    home: OnboardingScreen());
               },
-
             );
           },
         );
@@ -69,4 +66,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
