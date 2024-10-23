@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../core/const/colors.dart';
 import '../../../../../core/const/styles.dart';
@@ -12,10 +11,10 @@ class OnboardingButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(top: 20.h),
+      padding: EdgeInsets.only(top: 20),
       child: Container(
         width: double.infinity,
-        height: 45.h,
+        height: 45,
         decoration: BoxDecoration(
           border: Border.all(color: AppLightColors.black, width: 1),
           borderRadius: BorderRadius.circular(8),
