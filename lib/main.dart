@@ -38,28 +38,21 @@ class MyApp extends StatelessWidget {
         return BlocBuilder<ThemeCubit, ThemeMode>(
           bloc: getIt<ThemeCubit>(),
           builder: (_, themeMode) {
-            return ScreenUtilInit(
-              designSize: const Size(393, 852),
-              minTextAdapt: true,
-              splitScreenMode: true,
-              builder: (_, child) {
-                return MaterialApp(
-                    debugShowCheckedModeBanner: false,
-                    locale: locale,
-                    supportedLocales: const [Locale('en'), Locale('ar')],
-                    localizationsDelegates: const [
-                      AppLocaliztions.delegate,
-                      GlobalMaterialLocalizations.delegate,
-                      GlobalWidgetsLocalizations.delegate,
-                      GlobalCupertinoLocalizations.delegate,
-                    ],
-                    title: 'Muslim Wallet',
-                    themeMode: themeMode,
-                    theme: AppTheme.light,
-                    darkTheme: AppTheme.dark,
-                    home: OnboardingScreen());
-              },
-            );
+            return MaterialApp(
+                debugShowCheckedModeBanner: false,
+                locale: locale,
+                supportedLocales: const [Locale('en'), Locale('ar')],
+                localizationsDelegates: const [
+                  AppLocaliztions.delegate,
+                  GlobalMaterialLocalizations.delegate,
+                  GlobalWidgetsLocalizations.delegate,
+                  GlobalCupertinoLocalizations.delegate,
+                ],
+                title: 'Muslim Wallet',
+                themeMode: themeMode,
+                theme: AppTheme.light,
+                darkTheme: AppTheme.dark,
+                home: OnboardingScreen());
           },
         );
       },
